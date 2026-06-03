@@ -683,10 +683,14 @@ async function chkAdmin(){
 }
 
 // ——— INIT ———
-loadFromStorage();
-renderNav();renderBanners();renderTab();
+try{loadFromStorage();}catch(e){}
+try{renderNav();}catch(e){}
+try{renderBanners();}catch(e){}
+try{renderTab();}catch(e){
+  document.getElementById('tab-content').innerHTML='<div class="card"><p>Chargement...</p></div>';
+}
 if(fbUrl){
-  cloudLoad().then(function(ok){if(ok){renderNav();renderBanners();renderTab();}});
+  try{cloudLoad().then(function(ok){if(ok){renderNav();renderBanners();renderTab();}});}catch(e){}
 }
 </script>
 </body>
